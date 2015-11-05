@@ -243,10 +243,10 @@ namespace MonoDevelop.Refactoring {
 		{
 			if (String.IsNullOrEmpty (message)) {
 				labelError.Text = String.Empty;
-				imageError.Clear ();
+				imageError.Hide ();
 			} else {
 				labelError.Text = message;
-				imageError.SetFromStock (MonoDevelop.Ide.Gui.Stock.Error, IconSize.Menu);
+				imageError.Show ();
 			}
 		}
 
