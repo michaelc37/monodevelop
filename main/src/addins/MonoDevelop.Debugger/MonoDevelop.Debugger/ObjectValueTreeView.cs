@@ -90,10 +90,6 @@ namespace MonoDevelop.Debugger
 		readonly TreeViewColumn typeCol;
 		readonly TreeViewColumn pinCol;
 		
-		const string errorColor = "red";
-		const string modifiedColor = "blue";
-		const string disabledColor = "gray";
-		
 		static readonly CommandEntrySet menuSet;
 		
 		const int NameColumn = 0;
@@ -873,7 +869,7 @@ namespace MonoDevelop.Debugger
 				ShowExpanders = true;
 			
 			if (AllowAdding)
-				store.AppendValues (createMsg, "", "", null, true, true, null, disabledColor, disabledColor);
+				store.AppendValues (createMsg, "", "", null, true, true, null, CairoExtensions.ColorGetHex (Styles.ObjectValueTreeValueDisabledText), CairoExtensions.ColorGetHex (Styles.ObjectValueTreeValueDisabledText));
 
 			LoadState ();
 		}
@@ -1120,7 +1116,7 @@ namespace MonoDevelop.Debugger
 			if (val.IsUnknown) {
 				if (frame != null) {
 					strval = GettextCatalog.GetString ("The name '{0}' does not exist in the current context.", val.Name);
-					nameColor = disabledColor;
+					nameColor = CairoExtensions.ColorGetHex (Styles.ObjectValueTreeValueDisabledText);
 					canEdit = false;
 				} else {
 					canEdit = !val.IsReadOnly;
@@ -1133,11 +1129,11 @@ namespace MonoDevelop.Debugger
 				int i = strval.IndexOf ('\n');
 				if (i != -1)
 					strval = strval.Substring (0, i);
-				valueColor = errorColor;
+				valueColor = CairoExtensions.ColorGetHex (Styles.ObjectValueTreeValueErrorText);
 				canEdit = false;
 			} else if (val.IsNotSupported) {
 				strval = "";//val.Value; with new "Show Value" button we don't want to display message "Implicit evaluation is disabled"
-				valueColor = disabledColor;
+				valueColor = CairoExtensions.ColorGetHex (Styles.ObjectValueTreeValueDisabledText);
 				if (val.CanRefresh)
 					valueButton = GettextCatalog.GetString ("Show Value");
 				canEdit = false;
@@ -1146,9 +1142,9 @@ namespace MonoDevelop.Debugger
 
 				evaluateStatusIcon = "md-spinner-16";
 
-				valueColor = disabledColor;
+				valueColor = CairoExtensions.ColorGetHex (Styles.ObjectValueTreeValueDisabledText);
 				if (val.IsEvaluatingGroup) {
-					nameColor = disabledColor;
+					nameColor = CairoExtensions.ColorGetHex (Styles.ObjectValueTreeValueDisabledText);
 					name = val.Name;
 				}
 				canEdit = false;
@@ -1173,7 +1169,7 @@ namespace MonoDevelop.Debugger
 					strval = val.DisplayValue ?? "(null)";
 				}
 				if (oldValue != null && strval != oldValue)
-					nameColor = valueColor = modifiedColor;
+					nameColor = valueColor = CairoExtensions.ColorGetHex (Styles.ObjectValueTreeValueModifiedText);
 			}
 
 			strval = strval.Replace ("\r\n", " ").Replace ("\n", " ");
@@ -1473,7 +1469,7 @@ namespace MonoDevelop.Debugger
 			string oldValue;
 			if (oldValues.TryGetValue (valPath, out oldValue)) {
 				if (oldValue != val.Value)
-					newColor = modifiedColor;
+					newColor = CairoExtensions.ColorGetHex (Styles.ObjectValueTreeValueModifiedText);
 			}
 			
 			store.SetValue (it, NameColorColumn, newColor);
