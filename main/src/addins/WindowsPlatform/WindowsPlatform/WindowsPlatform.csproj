@@ -82,6 +82,10 @@
       <Project>{252117CA-0ABB-4F36-BFC8-DE23A8089BB9}</Project>
       <Name>Xwt.Gtk.Windows</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\external\xwt\Xwt.WPF\Xwt.WPF.csproj">
+      <Project>{C93D746E-1586-4D4F-B411-BF5A966E6A08}</Project>
+      <Name>Xwt.WPF</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dialogs\AddFileDialogHandler.cs" />
@@ -92,6 +96,27 @@
     <Compile Include="Dialogs\OpenFileDialogHandler.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="GdkWin32.cs" />
+    <Compile Include="MainToolbar\ComboMenu.cs" />
+    <Compile Include="MainToolbar\DottedSeparator.xaml.cs">
+      <DependentUpon>DottedSeparator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainToolbar\IconButton.xaml.cs">
+      <DependentUpon>IconButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainToolbar\SearchBar.xaml.cs">
+      <DependentUpon>SearchBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainToolbar\StatusBar.xaml.cs">
+      <DependentUpon>StatusBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainToolbar\TitleMenuItem.cs" />
+    <Compile Include="MainToolbar\TitleBar.xaml.cs">
+      <DependentUpon>TitleBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainToolbar\Toolbar.xaml.cs">
+      <DependentUpon>ToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainToolbar\WPFToolbar.cs" />
     <Compile Include="Win32.cs" />
     <Compile Include="WindowsPlatform.cs" />
     <Compile Include="RecentFiles.cs" />
@@ -105,15 +130,122 @@
     <Compile Include="CustomDialogs\CustomCommonFileDialogComboBox.cs" />
     <Compile Include="CustomDialogs\CustomCommonSaveFileDialog.cs" />
     <Compile Include="Dialogs\CommonFileDialogExtensions.cs" />
+    <Compile Include="ImageHelper.cs" />
+    <Compile Include="Styles.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="WindowsPlatform.addin.xml">
       <LogicalName>WindowsPlatform.addin.xml</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="icons\md-continue-debug.png">
+      <LogicalName>md-continue-debug.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\md-continue-debug~hover.png">
+      <LogicalName>md-continue-debug~hover.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\md-continue-debug~pressed.png">
+      <LogicalName>md-continue-debug~pressed.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\md-pause-debug.png">
+      <LogicalName>md-pause-debug.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\md-pause-debug~hover.png">
+      <LogicalName>md-pause-debug~hover.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\md-pause-debug~pressed.png">
+      <LogicalName>md-pause-debug~pressed.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\md-step-into-debug.png">
+      <LogicalName>md-step-into-debug.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\md-step-into-debug~hover.png">
+      <LogicalName>md-step-into-debug~hover.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\md-step-into-debug~pressed.png">
+      <LogicalName>md-step-into-debug~pressed.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\md-step-out-debug.png">
+      <LogicalName>md-step-out-debug.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\md-step-out-debug~hover.png">
+      <LogicalName>md-step-out-debug~hover.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\md-step-out-debug~pressed.png">
+      <LogicalName>md-step-out-debug~pressed.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\md-step-over-debug.png">
+      <LogicalName>md-step-over-debug.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\md-step-over-debug~hover.png">
+      <LogicalName>md-step-over-debug~hover.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\md-step-over-debug~pressed.png">
+      <LogicalName>md-step-over-debug~pressed.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\build.png">
+      <LogicalName>build.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\build~disabled.png">
+      <LogicalName>build~disabled.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\build~hover.png">
+      <LogicalName>build~hover.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\build~pressed.png">
+      <LogicalName>build~pressed.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\stop.png">
+      <LogicalName>stop.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\stop~disabled.png">
+      <LogicalName>stop~disabled.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\stop~hover.png">
+      <LogicalName>stop~hover.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\stop~pressed.png">
+      <LogicalName>stop~pressed.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\execute.png">
+      <LogicalName>execute.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\execute~disabled.png">
+      <LogicalName>execute~disabled.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\execute~hover.png">
+      <LogicalName>execute~hover.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\execute~pressed.png">
+      <LogicalName>execute~pressed.png</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Page Include="Dialogs\SelectEncodingControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainToolbar\DottedSeparator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainToolbar\IconButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainToolbar\SearchBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainToolbar\StatusBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainToolbar\TitleBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainToolbar\ToolBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

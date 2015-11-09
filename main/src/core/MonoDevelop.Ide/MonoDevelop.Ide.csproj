@@ -138,6 +138,7 @@
     <Reference Include="PresentationCore" Condition=" '$(Configuration)' == 'DebugWin32' Or '$(Configuration)' == 'ReleaseWin32' " />
     <Reference Include="PresentationFramework" Condition=" '$(Configuration)' == 'DebugWin32' Or '$(Configuration)' == 'ReleaseWin32' " />
     <Reference Include="WindowsBase" Condition=" '$(Configuration)' == 'DebugWin32' Or '$(Configuration)' == 'ReleaseWin32' " />
+    <Reference Include="WindowsFormsIntegration" Condition=" '$(Configuration)' == 'DebugWin32' Or '$(Configuration)' == 'ReleaseWin32' " />
     <Reference Include="System.Xaml" />
   </ItemGroup>
   <ItemGroup>
@@ -1617,17 +1618,20 @@
     <EmbeddedResource Include="icons\searchbox-clear-16~dark%402x.png">
       <LogicalName>searchbox-clear-16~dark@2x.png</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="icons\searchbox-search-16.png">
-      <LogicalName>searchbox-search-16.png</LogicalName>
+    <EmbeddedResource Include="icons\searchbox-search-mac-16.png">
+      <LogicalName>searchbox-search-mac-16.png</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="icons\searchbox-search-16%402x.png">
-      <LogicalName>searchbox-search-16@2x.png</LogicalName>
+    <EmbeddedResource Include="icons\searchbox-search-mac-16%402x.png">
+      <LogicalName>searchbox-search-mac-16@2x.png</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="icons\searchbox-search-16~dark.png">
-      <LogicalName>searchbox-search-16~dark.png</LogicalName>
+    <EmbeddedResource Include="icons\searchbox-search-mac-16~dark.png">
+      <LogicalName>searchbox-search-mac-16~dark.png</LogicalName>
     </EmbeddedResource>
-    <EmbeddedResource Include="icons\searchbox-search-16~dark%402x.png">
-      <LogicalName>searchbox-search-16~dark@2x.png</LogicalName>
+    <EmbeddedResource Include="icons\searchbox-search-mac-16~dark%402x.png">
+      <LogicalName>searchbox-search-mac-16~dark@2x.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\searchbox-search-win-16.png">
+      <LogicalName>searchbox-search-win-16.png</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="icons\clear-all-bookmarks-16.png">
       <LogicalName>clear-all-bookmarks-16.png</LogicalName>
