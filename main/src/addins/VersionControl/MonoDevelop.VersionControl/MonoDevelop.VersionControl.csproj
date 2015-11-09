@@ -642,6 +642,7 @@
     <Compile Include="AddinInfo.cs" />
     <Compile Include="MonoDevelop.VersionControl\VersionControlException.cs" />
     <Compile Include="MonoDevelop.VersionControl.Views\BaseView.cs" />
+    <Compile Include="MonoDevelop.VersionControl.Views\Styles.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Makefile.am" />

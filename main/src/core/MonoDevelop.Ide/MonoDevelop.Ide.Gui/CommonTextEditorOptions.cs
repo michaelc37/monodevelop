@@ -64,13 +64,17 @@ namespace MonoDevelop.Ide.Gui
 		void PropertyServiceChanged (object sender, PropertyChangedEventArgs e)
 		{
 			switch (e.Key) {
-			case "ColorScheme": {
+			case "ColorScheme":
+			case "ColorScheme-Dark": {
 				string val = (string) e.NewValue;
 				if (string.IsNullOrEmpty (val))
 					val = "Default";
 				base.ColorScheme = val;
 				break;
 			}
+			case "MonoDevelop.Ide.UserInterfaceTheme":
+				base.ColorScheme = IdeApp.Preferences.ColorScheme;
+				break;
 			}
 		}
 		
