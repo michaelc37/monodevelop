@@ -14,10 +14,10 @@
 // distribute, sublicense, and/or sell copies of the Software, and to
 // permit persons to whom the Software is furnished to do so, subject to
 // the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be
 // included in all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 // EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 // MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -61,7 +61,7 @@ namespace MonoDevelop.Ide
 		bool initialized;
 		internal static string DefaultTheme;
 		static readonly int ipcBasePort = 40000;
-		
+
 		int IApplication.Run (string[] args)
 		{
 			var options = MonoDevelopOptions.Parse (args);
@@ -69,7 +69,7 @@ namespace MonoDevelop.Ide
 				return options.Error != null? -1 : 0;
 			return Run (options);
 		}
-		
+
 		int Run (MonoDevelopOptions options)
 		{
 			LoggingService.LogInfo ("Starting {0} {1}", BrandingService.ApplicationName, IdeVersionInfo.MonoDevelopVersion);
@@ -95,7 +95,7 @@ namespace MonoDevelop.Ide
 			if (Platform.IsWindows && !CheckWindowsGtk ())
 				return 1;
 			SetupExceptionManager ();
-			
+
 			try {
 				GLibLogging.Enabled = true;
 			} catch (Exception ex) {
@@ -130,23 +130,23 @@ namespace MonoDevelop.Ide
 				if (string.IsNullOrEmpty (val.Val as string))
 					Mono.TextEditor.GtkWorkarounds.SetProperty (settings, "gtk-im-module", new GLib.Value ("ime"));
 			}
-			
+
 			InternalLog.Initialize ();
 			string socket_filename = null;
 			EndPoint ep = null;
-			
+
 			DispatchService.Initialize ();
 
 			// Set a synchronization context for the main gtk thread
 			SynchronizationContext.SetSynchronizationContext (new GtkSynchronizationContext ());
 			Runtime.MainSynchronizationContext = SynchronizationContext.Current;
-			
+
 			AddinManager.AddinLoadError += OnAddinError;
-			
+
 			var startupInfo = new StartupInfo (args);
-			
+
 			// If a combine was specified, force --newwindow.
-			
+
 			if (!options.NewWindow && startupInfo.HasFiles) {
 				Counters.Initialization.Trace ("Pre-Initializing Runtime to load files in existing window");
 				Runtime.Initialize (true);
@@ -157,7 +157,7 @@ namespace MonoDevelop.Ide
 					}
 				}
 			}
-			
+
 			Counters.Initialization.Trace ("Initializing Runtime");
 			Runtime.Initialize (true);
 
@@ -172,15 +172,15 @@ namespace MonoDevelop.Ide
 			ValidateGtkTheme (ref theme);
 			if (theme != DefaultTheme)
 				Gtk.Settings.Default.ThemeName = theme;
-			
+
 			IProgressMonitor monitor = new MonoDevelop.Core.ProgressMonitoring.ConsoleProgressMonitor ();
-			
+
 			monitor.BeginTask (GettextCatalog.GetString ("Starting {0}", BrandingService.ApplicationName), 2);
 
 			//make sure that the platform service is initialised so that the Mac platform can subscribe to open-document events
 			Counters.Initialization.Trace ("Initializing Platform Service");
 			DesktopService.Initialize ();
-			
+
 			monitor.Step (1);
 
 			if (options.IpcTcp) {
@@ -191,7 +191,7 @@ namespace MonoDevelop.Ide
 				listen_socket = new Socket (AddressFamily.Unix, SocketType.Stream, ProtocolType.IP);
 				ep = new UnixEndPoint (socket_filename);
 			}
-				
+
 			// If not opening a combine, connect to existing monodevelop and pass filename(s) and exit
 			if (!options.NewWindow && startupInfo.HasFiles) {
 				try {
@@ -208,17 +208,17 @@ namespace MonoDevelop.Ide
 						File.Delete (socket_filename);
 				}
 			}
-			
+
 			Counters.Initialization.Trace ("Checking System");
 			string version = Assembly.GetEntryAssembly ().GetName ().Version.Major + "." + Assembly.GetEntryAssembly ().GetName ().Version.Minor;
-			
+
 			if (Assembly.GetEntryAssembly ().GetName ().Version.Build != 0)
 				version += "." + Assembly.GetEntryAssembly ().GetName ().Version.Build;
 			if (Assembly.GetEntryAssembly ().GetName ().Version.Revision != 0)
 				version += "." + Assembly.GetEntryAssembly ().GetName ().Version.Revision;
 
 			CheckFileWatcher ();
-			
+
 			Exception error = null;
 			int reportedFailures = 0;
 
@@ -258,15 +258,15 @@ namespace MonoDevelop.Ide
 				}
 
 				IdeApp.OpenFiles (startupInfo.RequestedFileList);
-				
+
 				monitor.Step (1);
-			
+
 			} catch (Exception e) {
 				error = e;
 			} finally {
 				monitor.Dispose ();
 			}
-			
+
 			if (error != null) {
 				string message = BrandingService.BrandApplicationName (GettextCatalog.GetString ("MonoDevelop failed to start"));
 				MessageService.ShowFatalError (message, null, error);
@@ -277,9 +277,9 @@ namespace MonoDevelop.Ide
 				using (AddinLoadErrorDialog dlg = new AddinLoadErrorDialog ((AddinError[]) errorsList.ToArray (typeof(AddinError)), true))
 					dlg.Run ();
 			}
-			
+
 			errorsList = null;
-			
+
 			// FIXME: we should probably track the last 'selected' one
 			// and do this more cleanly
 			try {
@@ -289,19 +289,19 @@ namespace MonoDevelop.Ide
 			} catch {
 				// Socket already in use
 			}
-			
+
 			initialized = true;
 			MessageService.RootWindow = IdeApp.Workbench.RootWindow;
 			Thread.CurrentThread.Name = "GUI Thread";
 			Counters.Initialization.Trace ("Running IdeApp");
 			Counters.Initialization.EndTiming ();
-				
+
 			AddinManager.AddExtensionNodeHandler("/MonoDevelop/Ide/InitCompleteHandlers", OnExtensionChanged);
 			StartLockupTracker ();
 			IdeApp.Run ();
 
 			IdeApp.Customizer.OnIdeShutdown ();
-			
+
 			// unloading services
 			if (null != socket_filename)
 				File.Delete (socket_filename);
@@ -312,7 +312,7 @@ namespace MonoDevelop.Ide
 
 			InstrumentationService.Stop ();
 			AddinManager.AddinLoadError -= OnAddinError;
-			
+
 			return 0;
 		}
 
@@ -335,17 +335,17 @@ namespace MonoDevelop.Ide
 				while (lockupCheckRunning) {
 					const int waitTimeout = 5000;
 					const int maxResponseTime = 10000;
-					Thread.Sleep (waitTimeout); 
+					Thread.Sleep (waitTimeout);
 					if ((DateTime.Now - lastIdle).TotalMilliseconds > maxResponseTime) {
 						var pid = Process.GetCurrentProcess ().Id;
-						Mono.Unix.Native.Syscall.kill (pid, Mono.Unix.Native.Signum.SIGQUIT); 
+						Mono.Unix.Native.Syscall.kill (pid, Mono.Unix.Native.Signum.SIGQUIT);
 						return;
 					}
 				}
 			});
 			lockupCheckThread.Name = "Lockup check";
 			lockupCheckThread.IsBackground = true;
-			lockupCheckThread.Start (); 
+			lockupCheckThread.Start ();
 		}
 
 		void SetupTheme ()
@@ -358,24 +358,18 @@ namespace MonoDevelop.Ide
 		{
 			// Use the bundled gtkrc only if the Xamarin theme is installed
 			if (File.Exists (Path.Combine (Gtk.Rc.ModuleDir, "libxamarin.so")) || File.Exists (Path.Combine (Gtk.Rc.ModuleDir, "libxamarin.dll"))) {
-
 				var gtkrc = "gtkrc";
+
 				if (Platform.IsWindows) {
 					gtkrc += ".win32";
+
 					if (IdeApp.Preferences.UserInterfaceSkin == Skin.Dark)
 						gtkrc += "-dark";
-					var osv = Environment.OSVersion.Version;
-					if (osv.Major == 6 && osv.Minor < 1)
-						gtkrc += "-vista";
 				} else if (Platform.IsMac) {
 					gtkrc += ".mac";
+
 					if (IdeApp.Preferences.UserInterfaceSkin == Skin.Dark)
 						gtkrc += "-dark";
-
-					var osv = Platform.OSVersion;
-					if (osv.Major == 10 && osv.Minor >= 10) {
-						gtkrc += "-yosemite";
-					}
 				}
 
 				var gtkrcf = PropertyService.EntryAssemblyPath.Combine (gtkrc);
@@ -473,11 +467,11 @@ namespace MonoDevelop.Ide
 			const BindingFlags flags = BindingFlags.InvokeMethod | BindingFlags.Public | BindingFlags.Static;
 			return md.InvokeMember ("Show", flags, null, null, new object[] { message, caption, okCancel }).Equals (ok);
 		}
-		
+
 		public bool Initialized {
 			get { return initialized; }
 		}
-		
+
 		static void OnExtensionChanged (object s, ExtensionNodeEventArgs args)
 		{
 			if (args.Change == ExtensionChange.Add) {
@@ -491,13 +485,13 @@ namespace MonoDevelop.Ide
 				}
 			}
 		}
-		
+
 		void OnAddinError (object s, AddinErrorEventArgs args)
 		{
 			if (errorsList != null)
 				errorsList.Add (new AddinError (args.AddinId, args.Message, args.Exception, false));
 		}
-		
+
 		void ListenCallback (IAsyncResult state)
 		{
 			Socket sock = (Socket)state.AsyncState;
@@ -518,26 +512,26 @@ namespace MonoDevelop.Ide
 			}
 		}
 
-		static bool OpenFile (string file) 
+		static bool OpenFile (string file)
 		{
 			if (string.IsNullOrEmpty (file))
 				return false;
-			
+
 			Match fileMatch = StartupInfo.FileExpression.Match (file);
 			if (null == fileMatch || !fileMatch.Success)
 				return false;
-				
+
 			int line = 1,
 			    column = 1;
-			
+
 			file = fileMatch.Groups["filename"].Value;
 			if (fileMatch.Groups["line"].Success)
 				int.TryParse (fileMatch.Groups["line"].Value, out line);
 			if (fileMatch.Groups["column"].Success)
 				int.TryParse (fileMatch.Groups["column"].Value, out column);
-				
+
 			try {
-				if (MonoDevelop.Projects.Services.ProjectService.IsWorkspaceItemFile (file) || 
+				if (MonoDevelop.Projects.Services.ProjectService.IsWorkspaceItemFile (file) ||
 					MonoDevelop.Projects.Services.ProjectService.IsSolutionItemFile (file)) {
 						IdeApp.Workspace.OpenWorkspaceItem (file);
 				} else {
@@ -589,7 +583,7 @@ namespace MonoDevelop.Ide
 
 			theme = fallback ?? themes.FirstOrDefault () ?? theme;
 		}
-		
+
 		void CheckFileWatcher ()
 		{
 			string watchesFile = "/proc/sys/fs/inotify/max_user_watches";
@@ -602,7 +596,7 @@ namespace MonoDevelop.Ide
 						msg += "MonoDevelop will switch to managed file watching.\n";
 						msg += "See http://monodevelop.com/Inotify_Watches_Limit for more info.";
 						LoggingService.LogWarning (BrandingService.BrandApplicationName (msg));
-						Runtime.ProcessService.EnvironmentVariableOverrides["MONO_MANAGED_WATCHER"] = 
+						Runtime.ProcessService.EnvironmentVariableOverrides["MONO_MANAGED_WATCHER"] =
 							Environment.GetEnvironmentVariable ("MONO_MANAGED_WATCHER");
 						Environment.SetEnvironmentVariable ("MONO_MANAGED_WATCHER", "1");
 					}
@@ -657,7 +651,7 @@ namespace MonoDevelop.Ide
 				HandleException (e.ErrorException, false);
 			};
 		}
-		
+
 		static void HandleException (Exception ex, bool willShutdown)
 		{
 			var msg = String.Format ("An unhandled exception has occured. Terminating {0}? {1}", BrandingService.ApplicationName, willShutdown);
@@ -667,7 +661,7 @@ namespace MonoDevelop.Ide
 			else
 				LoggingService.LogInternalError (msg, ex);
 		}
-		
+
 		/// <summary>SDBM-style hash, bounded to a range of 1000.</summary>
 		static int HashSdbmBounded (string input)
 		{
@@ -677,16 +671,16 @@ namespace MonoDevelop.Ide
 					hash = ((ulong)input[i]) + (hash << 6) + (hash << 16) - hash;
 				}
 			}
-				
+
 			return (int)(hash % 1000);
 		}
-		
+
 		public static int Main (string[] args, IdeCustomizer customizer = null)
 		{
 			var options = MonoDevelopOptions.Parse (args);
 			if (options.ShowHelp || options.Error != null)
 				return options.Error != null? -1 : 0;
-			
+
 			LoggingService.Initialize (options.RedirectOutput);
 
 			if (customizer == null)
@@ -741,7 +735,7 @@ namespace MonoDevelop.Ide
 			return null;
 		}
 	}
-	
+
 	public class MonoDevelopOptions
 	{
 		MonoDevelopOptions ()
@@ -749,7 +743,7 @@ namespace MonoDevelop.Ide
 			IpcTcp = (PlatformID.Unix != Environment.OSVersion.Platform);
 			RedirectOutput = true;
 		}
-		
+
 		Mono.Options.OptionSet GetOptionSet ()
 		{
 			return new Mono.Options.OptionSet {
@@ -761,23 +755,23 @@ namespace MonoDevelop.Ide
 				{ "no-redirect", "Disable redirection of stdout/stderr to a log file", s => RedirectOutput = false },
 			};
 		}
-		
+
 		public static MonoDevelopOptions Parse (string[] args)
 		{
 			var opt = new MonoDevelopOptions ();
 			var optSet = opt.GetOptionSet ();
-			
+
 			try {
 				opt.RemainingArgs = optSet.Parse (args);
 			} catch (Mono.Options.OptionException ex) {
 				opt.Error = ex.ToString ();
 			}
-			
+
 			if (opt.Error != null) {
 				Console.WriteLine ("ERROR: {0}", opt.Error);
 				Console.WriteLine ("Pass --help for usage information.");
 			}
-			
+
 			if (opt.ShowHelp) {
 				Console.WriteLine (BrandingService.ApplicationName + " " + BuildInfo.VersionLabel);
 				Console.WriteLine ("Options:");
@@ -787,10 +781,10 @@ namespace MonoDevelop.Ide
 				Console.Write (new string (' ', 29 - openFileText.Length));
 				Console.WriteLine ("Opens a file at specified integer line and column");
 			}
-			
+
 			return opt;
 		}
-		
+
 		public bool IpcTcp { get; set; }
 		public bool NewWindow { get; set; }
 		public bool ShowHelp { get; set; }
@@ -800,14 +794,14 @@ namespace MonoDevelop.Ide
 		public IList<string> RemainingArgs { get; set; }
 		public IdeCustomizer IdeCustomizer { get; set; }
 	}
-	
+
 	public class AddinError
 	{
 		string addinFile;
 		Exception exception;
 		bool fatal;
 		string message;
-		
+
 		public AddinError (string addin, string message, Exception exception, bool fatal)
 		{
 			this.addinFile = addin;
@@ -815,19 +809,19 @@ namespace MonoDevelop.Ide
 			this.exception = exception;
 			this.fatal = fatal;
 		}
-		
+
 		public string AddinFile {
 			get { return addinFile; }
 		}
-		
+
 		public string Message {
 			get { return message; }
 		}
-		
+
 		public Exception Exception {
 			get { return exception; }
 		}
-		
+
 		public bool Fatal {
 			get { return fatal; }
 		}
