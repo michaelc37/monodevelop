@@ -198,6 +198,7 @@ namespace MonoDevelop.Ide.CodeCompletion
 			selectedItemColor = Styles.CodeCompletion.SelectionBackgroundColor;
 			selectedItemInactiveColor = Styles.CodeCompletion.SelectionBackgroundInactiveColor;
 			selectionTextColor = Styles.CodeCompletion.SelectionTextColor;
+			ModifyBg (StateType.Normal, backgroundColor.ToGdkColor ());
 		}
 
 		
