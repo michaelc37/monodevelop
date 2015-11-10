@@ -36,6 +36,7 @@ namespace WindowsPlatform.MainToolbar
 			InitializeComponent ();
 			DataContext = this;
 			Background = Styles.StatusBarBackgroundBrush;
+			TextBrush = Styles.StatusBarTextBrush;
 
 			ctxHandler = new StatusBarContextHandler (this);
 

@@ -24,7 +24,8 @@ namespace WindowsPlatform.MainToolbar
     {
         public TitleBar()
         {
-            InitializeComponent();
+			InitializeComponent();
+			Background = Styles.MainMenuBackgroundBrush;
         }
 	}
 }

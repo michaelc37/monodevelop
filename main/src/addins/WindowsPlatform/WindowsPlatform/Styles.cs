@@ -25,6 +25,7 @@
 // THE SOFTWARE.
 using System;
 using System.Windows.Media;
+using MonoDevelop.Ide;
 
 namespace WindowsPlatform
 {
@@ -42,21 +43,42 @@ namespace WindowsPlatform
 		public static Brush SearchBarBorderBrush { get; private set; }
 		public static Brush SearchBarBackgroundBrush { get; private set; }
 		public static Brush SearchBarTextBrush { get; private set; }
-		
+
 		static Styles ()
 		{
-			MainToolbarBackgroundBrush = Brushes.Transparent;
-			MainToolbarForegroundBrush = Brushes.Black;
-			MainToolbarShadowBrush = Brushes.Gray;
-			MainMenuBackgroundBrush = Brushes.Transparent;
-			StatusBarBackgroundBrush = new SolidColorBrush (new Color {A = 0xFF, R = 0xE5, G = 0xE5, B = 0xE5});
-			StatusBarTextBrush = MainToolbarForegroundBrush;
-			StatusBarErrorTextBrush = Brushes.Red;
-			StatusBarWarningTextBrush = Brushes.Orange;
-			StatusBarReadyTextBrush = Brushes.Gray;
-			SearchBarBorderBrush = Brushes.LightGray;
-			SearchBarBackgroundBrush = Brushes.White;
-			SearchBarTextBrush = MainToolbarForegroundBrush;
+			LoadStyles ();
+			MonoDevelop.Ide.Gui.Styles.Changed += (o, e) => LoadStyles ();
+		}
+
+		public static void LoadStyles ()
+		{
+			if (IdeApp.Preferences.UserInterfaceSkin == Skin.Light) {
+				MainToolbarBackgroundBrush = Brushes.Transparent;
+				MainToolbarForegroundBrush = Brushes.Black;
+				MainToolbarShadowBrush = Brushes.Gray;
+				MainMenuBackgroundBrush = Brushes.Transparent;
+				StatusBarBackgroundBrush = new SolidColorBrush (new Color {A = 0xFF, R = 0xE5, G = 0xE5, B = 0xE5});
+				StatusBarTextBrush = MainToolbarForegroundBrush;
+				StatusBarErrorTextBrush = Brushes.Red;
+				StatusBarWarningTextBrush = Brushes.Orange;
+				StatusBarReadyTextBrush = Brushes.Gray;
+				SearchBarBorderBrush = Brushes.LightGray;
+				SearchBarBackgroundBrush = Brushes.White;
+				SearchBarTextBrush = MainToolbarForegroundBrush;
+			} else {
+				MainToolbarBackgroundBrush = new SolidColorBrush (new Color {A=0xFF, R=0x33, G=0x33, B=0x33});
+				MainToolbarForegroundBrush = Brushes.White;
+				MainToolbarShadowBrush = Brushes.Gray;
+				MainMenuBackgroundBrush = new SolidColorBrush (new Color {A=0xFF, R=0x33, G=0x33, B=0x33});
+				StatusBarBackgroundBrush = new SolidColorBrush (new Color {A = 0xFF, R = 0x22, G = 0x22, B = 0x22});
+				StatusBarTextBrush = MainToolbarForegroundBrush;
+				StatusBarErrorTextBrush = Brushes.Red;
+				StatusBarWarningTextBrush = Brushes.Orange;
+				StatusBarReadyTextBrush = Brushes.LightGray;
+				SearchBarBorderBrush = Brushes.DarkGray;
+				SearchBarBackgroundBrush = Brushes.White;
+				SearchBarTextBrush = MainToolbarForegroundBrush;
+			}
 		}
 	}
 }

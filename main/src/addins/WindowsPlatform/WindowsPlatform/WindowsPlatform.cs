@@ -111,6 +111,7 @@ namespace MonoDevelop.Platform
 			var mainMenu = new Menu {
 				IsMainMenu = true,
 				Background = global::WindowsPlatform.Styles.MainMenuBackgroundBrush,
+				Foreground = global::WindowsPlatform.Styles.MainToolbarForegroundBrush,
 			};
 			foreach (CommandEntrySet ce in ces)
 				mainMenu.Items.Add (new TitleMenuItem (commandManager, ce));

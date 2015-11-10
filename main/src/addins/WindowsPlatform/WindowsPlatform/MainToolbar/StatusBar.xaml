@@ -9,7 +9,7 @@
         <Grid>
             <ProgressBar Minimum="0" Maximum="1" x:Name="ProgressBar" BorderThickness="0" Foreground="#FFB3E770" />
         </Grid>
-        <Grid>
+        <Grid Background="{Binding Background}" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
