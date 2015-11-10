@@ -26,20 +26,28 @@
 using System;
 using System.Windows;
 using Xwt.Drawing;
+using System.Windows.Media;
+using System.Windows.Controls;
 
 namespace WindowsPlatform
 {
 	public class ImageBox : System.Windows.Controls.UserControl
 	{
 		public static readonly DependencyProperty ImageProperty =
-			DependencyProperty.Register ("Image", typeof (Image), typeof (ImageBox), new FrameworkPropertyMetadata () { AffectsMeasure = true, AffectsRender = true });
-
+			DependencyProperty.Register ("Image", typeof (Xwt.Drawing.Image), typeof (ImageBox), new FrameworkPropertyMetadata () { AffectsMeasure = true, AffectsRender = true });
+		
+		public static readonly DependencyProperty StretchProperty =
+			Viewbox.StretchProperty.AddOwner(typeof(ImageBox));
+		
+		public static readonly DependencyProperty StretchDirectionProperty =
+			Viewbox.StretchDirectionProperty.AddOwner(typeof(ImageBox));
+		
 		public ImageBox ()
 		{
 			Image = null;
 		}
 
-		public ImageBox (Image image)
+		public ImageBox (Xwt.Drawing.Image image)
 		{
 			Image = image;
 		}
@@ -49,29 +57,94 @@ namespace WindowsPlatform
 			Image = MonoDevelop.Ide.ImageService.GetIcon (iconId, size);
 		}
 
-		protected override void OnRender (System.Windows.Media.DrawingContext dc)
+		protected override void OnRender (DrawingContext dc)
 		{
 			var image = Image;
 			if (image != null) {
+				image = image.WithBoxSize (RenderSize.Width, RenderSize.Height);
 				var x = (RenderSize.Width - image.Size.Width) / 2;
 				var y = (RenderSize.Height - image.Size.Height) / 2;
 				MonoDevelop.Platform.WindowsPlatform.WPFToolkit.RenderImage (this, dc, image, x, y);
 			}
 		}
 
-		public Image Image
+		public Xwt.Drawing.Image Image
 		{
-			get { return (Image)GetValue (ImageProperty); }
+			get { return (Xwt.Drawing.Image)GetValue (ImageProperty); }
 			set { SetValue (ImageProperty, value); }
+		}
+
+		public Stretch Stretch
+		{
+			get { return (Stretch) GetValue(StretchProperty); }
+			set { SetValue(StretchProperty, value); }
+		}
+
+		public StretchDirection StretchDirection
+		{
+			get { return (StretchDirection)GetValue(StretchDirectionProperty); }
+			set { SetValue(StretchDirectionProperty, value); }
 		}
 
 		protected override Size MeasureOverride (Size constraint)
 		{
-			var image = Image;
-			if (image != null)
-				return new Size (image.Size.Width, image.Size.Height);
-			else
+			return CalcSizeForBounds (constraint);
+		}
+
+		protected override Size ArrangeOverride (Size arrangeBounds)
+		{
+			return CalcSizeForBounds (arrangeBounds);
+		}
+
+		Size CalcSizeForBounds (Size availableSize)
+		{
+			if (Image == null)
 				return new Size (0, 0);
+			
+			double scaleX = 1.0;
+			double scaleY = 1.0;
+
+			bool isConstrainedWidth = !Double.IsPositiveInfinity(availableSize.Width);
+			bool isConstrainedHeight = !Double.IsPositiveInfinity(availableSize.Height);
+
+			if ((Stretch == Stretch.Uniform || Stretch == Stretch.UniformToFill || Stretch == Stretch.Fill)
+				&& (isConstrainedWidth || isConstrainedHeight) )
+			{
+				scaleX = availableSize.Width / Image.Size.Width;
+				scaleY = availableSize.Height / Image.Size.Height;
+
+				if (!isConstrainedWidth)
+					scaleX = scaleY;
+				else if (!isConstrainedHeight)
+					scaleY = scaleX;
+				else switch (Stretch) 
+				{
+					case Stretch.Uniform:
+						double minscale = scaleX < scaleY ? scaleX : scaleY;
+						scaleX = scaleY = minscale;
+						break;
+
+					case Stretch.UniformToFill:
+						double maxscale = scaleX > scaleY ? scaleX : scaleY;
+						scaleX = scaleY = maxscale;
+						break;
+				}
+
+				switch(StretchDirection)
+				{
+					case StretchDirection.UpOnly:
+						if (scaleX < 1.0) scaleX = 1.0;
+						if (scaleY < 1.0) scaleY = 1.0;
+						break;
+
+					case StretchDirection.DownOnly:
+						if (scaleX > 1.0) scaleX = 1.0;
+						if (scaleY > 1.0) scaleY = 1.0;
+						break;
+				}
+			}
+
+			return new Size(Image.Size.Width * scaleX, Image.Size.Height * scaleY);
 		}
 	}
 }
