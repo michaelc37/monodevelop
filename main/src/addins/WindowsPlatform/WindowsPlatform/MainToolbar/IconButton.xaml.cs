@@ -24,31 +24,55 @@ namespace WindowsPlatform.MainToolbar
 	/// </summary>
 	public partial class IconButtonControl : UserControl, INotifyPropertyChanged
 	{
-		ImageSource currentImage;
-		public ImageSource CurrentImage
+		Xwt.Drawing.Image image;
+		public Xwt.Drawing.Image Image
 		{
-			get { return currentImage; }
-			set { currentImage = value; RaisePropertyChanged (); }
+			get { return image; }
+			set { image = value; RaisePropertyChanged (); }
 		}
 
 		public IconButtonControl (Xwt.Drawing.Image image)
-			: this (image == null ? null : image.GetImageSource ())
-		{
-		}
-
-		public IconButtonControl (ImageSource image)
 		{
 			InitializeComponent ();
 
 			DataContext = this;
 			IsEnabled = false;
-			CurrentImage = image;
+			Image = image;
 		}
 
 		void OnClick (object sender, RoutedEventArgs args)
 		{
 			if (Click != null)
 				Click (sender, args);
+		}
+
+		protected override void OnPropertyChanged (DependencyPropertyChangedEventArgs e)
+		{
+			base.OnPropertyChanged (e);
+			if (Image == null)
+				return;
+			if (e.Property == IsEnabledProperty)
+				RunIcon.Image = IsEnabled ? Image : Image.WithStyles ("disabled");
+			if (e.Property == IsMouseOverProperty && IsEnabled)
+				RunIcon.Image = IsMouseOver ? Image.WithStyles ("hover") : Image;
+		}
+
+		protected override void OnMouseLeftButtonDown (MouseButtonEventArgs e)
+		{
+			base.OnMouseLeftButtonDown (e);
+			if (Image == null)
+				return;
+			if (IsEnabled)
+				RunIcon.Image = Image.WithStyles ("pressed");
+		}
+
+		protected override void OnMouseLeftButtonUp (MouseButtonEventArgs e)
+		{
+			base.OnMouseLeftButtonDown (e);
+			if (Image == null)
+				return;
+			if (IsEnabled)
+				RunIcon.Image = Image;
 		}
 
 		void RaisePropertyChanged ([CallerMemberName] string propName = null)
@@ -80,11 +104,11 @@ namespace WindowsPlatform.MainToolbar
 				if (value == icon)
 					return;
 				icon = value;
-				CurrentImage = GetIcon (icon);
+				Image = GetIcon (icon);
 			}
 		}
 
-		static ImageSource GetIcon (OperationIcon icon)
+		static Xwt.Drawing.Image GetIcon (OperationIcon icon)
 		{
 			string img;
 			switch (icon) {
@@ -101,7 +125,7 @@ namespace WindowsPlatform.MainToolbar
 					throw new InvalidOperationException ();
 			}
 
-			return Xwt.Drawing.Image.FromResource (typeof (RunButtonControl), img).WithSize (Xwt.IconSize.Medium).GetImageSource ();
+			return Xwt.Drawing.Image.FromResource (typeof (RunButtonControl), img).WithSize (Xwt.IconSize.Medium);
 		}
 	}
 
@@ -152,7 +176,7 @@ namespace WindowsPlatform.MainToolbar
 
 		void OnButtonImageChanged (object sender, EventArgs args)
 		{
-			CurrentImage = button.Image.GetStockIcon ().WithSize (Xwt.IconSize.Medium).GetImageSource();
+			Image = button.Image.GetStockIcon ().WithSize (Xwt.IconSize.Medium);
         }
 
 		void OnButtonClicked (object sender, RoutedEventArgs args)

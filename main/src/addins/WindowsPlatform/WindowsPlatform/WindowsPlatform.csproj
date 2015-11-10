@@ -132,6 +132,7 @@
     <Compile Include="Dialogs\CommonFileDialogExtensions.cs" />
     <Compile Include="ImageHelper.cs" />
     <Compile Include="Styles.cs" />
+    <Compile Include="ImageBox.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="WindowsPlatform.addin.xml">
