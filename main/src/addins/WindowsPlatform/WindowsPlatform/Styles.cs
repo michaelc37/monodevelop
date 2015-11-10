@@ -76,8 +76,8 @@ namespace WindowsPlatform
 				StatusBarErrorTextBrush = Brushes.Red;
 				StatusBarWarningTextBrush = Brushes.Orange;
 				StatusBarReadyTextBrush = Brushes.LightGray;
-				SearchBarBorderBrush = Brushes.DarkGray;
-				SearchBarBackgroundBrush = Brushes.White;
+				SearchBarBorderBrush = Brushes.Black;
+				SearchBarBackgroundBrush = new SolidColorBrush (new Color {A = 0xFF, R = 0x22, G = 0x22, B = 0x22});
 				SearchBarTextBrush = MainToolbarForegroundBrush;
 			}
 		}
