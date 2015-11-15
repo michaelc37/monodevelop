@@ -51,6 +51,7 @@ using MonoDevelop.Components.Commands;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Input;
 
 namespace MonoDevelop.Platform
 {
@@ -71,10 +72,10 @@ namespace MonoDevelop.Platform
 		}
 
 		#region Toolbar implementation
-		CommandManager commandManager;
+		Components.Commands.CommandManager commandManager;
 		string commandMenuAddinPath;
 		string appMenuAddinPath;
-		public override bool SetGlobalMenu (CommandManager commandManager, string commandMenuAddinPath, string appMenuAddinPath)
+		public override bool SetGlobalMenu (Components.Commands.CommandManager commandManager, string commandMenuAddinPath, string appMenuAddinPath)
 		{
 			// Only store this information. Release it when creating the main toolbar.
 			this.commandManager = commandManager;
@@ -93,7 +94,7 @@ namespace MonoDevelop.Platform
 			};
 			commandManager.IncompleteKeyPressed += (sender, e) => {
 				if (e.Key == Gdk.Key.Alt_L || e.Key == Gdk.Key.Alt_R) {
-					titleBar.Focus();
+					Keyboard.Focus(titleBar.DockTitle.Children[0]);
 				}
 			};
 			parent.PackStart (topMenu, false, true, 0);
@@ -112,9 +113,19 @@ namespace MonoDevelop.Platform
 				IsMainMenu = true,
 				Background = global::WindowsPlatform.Styles.MainMenuBackgroundBrush,
 				Foreground = global::WindowsPlatform.Styles.MainToolbarForegroundBrush,
+				FocusVisualStyle = null,
 			};
 			foreach (CommandEntrySet ce in ces)
-				mainMenu.Items.Add (new TitleMenuItem (commandManager, ce));
+			{
+				var item = new TitleMenuItem(commandManager, ce);
+				item.SubmenuClosed += (o, e) =>
+				{
+					bool shouldFocusIde = !mainMenu.Items.OfType<MenuItem>().Any(mi => mi.IsSubmenuOpen);
+					if (shouldFocusIde)
+						IdeApp.Workbench.RootWindow.Present();
+				};
+				mainMenu.Items.Add(item);
+			}
 
 			titleBar.DockTitle.Children.Add (mainMenu);
 			DockPanel.SetDock (mainMenu, Dock.Left);

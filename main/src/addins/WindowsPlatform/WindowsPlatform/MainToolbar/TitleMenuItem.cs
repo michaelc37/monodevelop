@@ -51,6 +51,7 @@ namespace WindowsPlatform.MainToolbar
 				}
 			} else if (menuLinkEntry != null) {
 				Header = menuLinkEntry.Text;
+				Click += OnMenuLinkClicked;
 			} else if (entry != null) {
 				actionCommand = manager.GetCommand (menuEntry.CommandId) as ActionCommand;
 				if (actionCommand == null)
@@ -68,6 +69,7 @@ namespace WindowsPlatform.MainToolbar
 				} catch (Exception ex) {
 					MonoDevelop.Core.LoggingService.LogError ("Failed loading menu icon: " + actionCommand.Icon, ex);
 				}
+				Click += OnMenuClicked;
 			}
 
 			Height = SystemParameters.CaptionHeight;
@@ -75,42 +77,38 @@ namespace WindowsPlatform.MainToolbar
 		}
 
 		/// <summary>
-		/// Updates a command entry. IncludeChildren will be used to detect whether the command was issued from a top level node.
-		/// This will update all the menu's children on a first call, then only the nodes themselves on the recursive call.
+		/// Updates a command entry. Should only be called from a toplevel node.
+		/// This will update all the menu's children.
 		/// </summary>
-		/// <param name="includeChildren">If set to <c>true</c> include children.</param>
-		void Update (bool includeChildren)
+		void Update ()
 		{
-			if (menuLinkEntry != null) {
-				Click += OnMenuLinkClicked;
+			hasCommand = false;
+			if (menuLinkEntry != null)
 				return;
-			}
 
 			if (menuEntrySet != null || commandArrayInfo is CommandInfoSet) {
-				if (includeChildren) {
-					for (int i = 0; i < Items.Count; ++i) {
-						var titleMenuItem = Items[i] as TitleMenuItem;
+				for (int i = 0; i < Items.Count; ++i) {
+					var titleMenuItem = Items[i] as TitleMenuItem;
 
-						if (titleMenuItem != null) {
-							titleMenuItem.Update (true);
-							continue;
-						}
+					if (titleMenuItem != null) {
+						titleMenuItem.Update ();
+						continue;
+					}
 
-						// If we have a separator, don't draw another one if the previous visible item is a separator.
-						var separatorMenuItem = Items [i] as Separator;
-						separatorMenuItem.Visibility = Visibility.Collapsed;
-						for (int j = i - 1; j >= 0; --j) {
-							var iterMenuItem = Items [j] as Control;
+					// If we have a separator, don't draw another one if the previous visible item is a separator.
+					var separatorMenuItem = Items [i] as Separator;
+					separatorMenuItem.Visibility = Visibility.Collapsed;
+					for (int j = i - 1; j >= 0; --j) {
+						var iterMenuItem = Items [j] as Control;
 
-							if (iterMenuItem is Separator)
-								break;
-
-							if (iterMenuItem.Visibility != Visibility.Visible)
-								continue;
-
-							separatorMenuItem.Visibility = Visibility.Visible;
+						if (iterMenuItem is Separator)
 							break;
-						}
+
+						if (iterMenuItem.Visibility != Visibility.Visible)
+							continue;
+
+						separatorMenuItem.Visibility = Visibility.Visible;
+						break;
 					}
 					if (menuEntrySet != null && menuEntrySet.AutoHide)
 						Visibility = Items.Cast<Control> ().Any (item => item.Visibility == Visibility.Visible) ? Visibility.Visible : Visibility.Collapsed;
@@ -146,11 +144,12 @@ namespace WindowsPlatform.MainToolbar
 			}
 
 			SetInfo (commandArrayInfo != null ? commandArrayInfo : info);
-			Click += OnMenuClicked;
 		}
 
+		bool hasCommand = false;
 		void SetInfo (CommandInfo info)
 		{
+			hasCommand = true;
 			Header = info.Text;
 			IsEnabled = info.Enabled;
 			Visibility = info.Visible && (menuEntry.DisabledVisible || IsEnabled) ?
@@ -160,36 +159,31 @@ namespace WindowsPlatform.MainToolbar
 		}
 
 		/// <summary>
-		/// Clears a command entry's saved data. IncludeChildren will be used to detect whether the command was issued from a top level node.
-		/// This will update all the menu's children on a first call, then only the nodes themselves on the recursive call.
+		/// Clears a command entry's saved data. Should only be called from a toplevel node.
+		/// This will update all the menu's children.
 		/// </summary>
-		/// <param name="includeChildren">If set to <c>true</c> include children.</param>
-		IEnumerable<Control> Clear (bool includeChildren)
+		IEnumerable<Control> Clear ()
 		{
 			if (menuLinkEntry != null) {
-				Click -= OnMenuLinkClicked;
 				return Enumerable.Empty<TitleMenuItem> ();
 			}
 
 			if (menuEntrySet != null) {
-				if (includeChildren) {
-					var toRemove = Enumerable.Empty<Control> ();
-                    foreach (var item in Items) {
-						var titleMenuItem = item as TitleMenuItem;
-						if (titleMenuItem == null)
-							continue;
+				var toRemove = Enumerable.Empty<Control> ();
+                foreach (var item in Items) {
+					var titleMenuItem = item as TitleMenuItem;
+					if (titleMenuItem == null)
+						continue;
 
-						toRemove = toRemove.Concat (titleMenuItem.Clear (false));
-					}
-
-					foreach (var item in toRemove)
-						Items.Remove (item);
+					toRemove = toRemove.Concat (titleMenuItem.Clear ());
 				}
+
+				foreach (var item in toRemove)
+					Items.Remove (item);
+
 				return Enumerable.Empty<TitleMenuItem> (); 
 			}
-
-			Click -= OnMenuClicked;
-
+			
 			var ret = toRemoveFromParent;
 			toRemoveFromParent = new List<Control> ();
 			return ret;
@@ -197,18 +191,25 @@ namespace WindowsPlatform.MainToolbar
 
 		protected override void OnSubmenuOpened (RoutedEventArgs e)
 		{
-			Update (includeChildren: true);
+			if (Parent is Menu)
+				Update ();
+
 			base.OnSubmenuOpened (e);
 		}
 
 		protected override void OnSubmenuClosed (RoutedEventArgs e)
 		{
-			Clear (includeChildren: true);
+			if (Parent is Menu)
+				Clear ();
+
 			base.OnSubmenuClosed (e);
 		}
 
 		void OnMenuClicked (object sender, RoutedEventArgs e)
 		{
+			if (!hasCommand)
+				return;
+
 			if (commandArrayInfo != null) {
 				manager.DispatchCommand (menuEntry.CommandId, commandArrayInfo.DataItem, initialCommandTarget, commandSource);
 			} else {
