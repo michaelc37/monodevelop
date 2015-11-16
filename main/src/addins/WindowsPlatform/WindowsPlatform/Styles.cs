@@ -54,6 +54,8 @@ namespace WindowsPlatform
 		static Brush statusBarErrorTextBrush;
 		static Brush statusBarWarningTextBrush;
 		static Brush statusBarReadyTextBrush;
+		static Brush statusBarProgressBorderBrush;
+		static Brush statusBarProgressBackgroundBrush;
 		static Brush searchBarBorderBrush;
 		static Brush searchBarBackgroundBrush;
 		static Brush searchBarTextBrush;
@@ -148,6 +150,16 @@ namespace WindowsPlatform
 			private set { statusBarReadyTextBrush = value; RaisePropertyChanged (); }
 		}
 
+		public static Brush StatusBarProgressBorderBrush {
+			get { return statusBarProgressBorderBrush; }
+			private set { statusBarProgressBorderBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush StatusBarProgressBackgroundBrush {
+			get { return statusBarProgressBackgroundBrush; }
+			private set { statusBarProgressBackgroundBrush = value; RaisePropertyChanged (); }
+		}
+
 		public static Brush SearchBarBorderBrush {
 			get { return searchBarBorderBrush; }
 			private set { searchBarBorderBrush = value; RaisePropertyChanged (); }
@@ -193,6 +205,8 @@ namespace WindowsPlatform
 				StatusBarErrorTextBrush = Brushes.Red;
 				StatusBarWarningTextBrush = Brushes.Orange;
 				StatusBarReadyTextBrush = Brushes.Gray;
+				StatusBarProgressBorderBrush = new SolidColorBrush (new Color {A = 0xFF, R = 0xD9, G = 0xDC, B = 0xE1});
+				StatusBarProgressBackgroundBrush = new SolidColorBrush (new Color {A = 0xFF, R = 0xB3, G = 0xE7, B = 0x70});
 				SearchBarBorderBrush = Brushes.LightGray;
 				SearchBarBackgroundBrush = Brushes.White;
 				SearchBarTextBrush = MainToolbarForegroundBrush;
@@ -217,6 +231,8 @@ namespace WindowsPlatform
 				StatusBarErrorTextBrush = Brushes.Red;
 				StatusBarWarningTextBrush = Brushes.Orange;
 				StatusBarReadyTextBrush = Brushes.LightGray;
+				StatusBarProgressBorderBrush = new SolidColorBrush (new Color {A = 0xFF, R = 0xD9, G = 0xDC, B = 0xE1});
+				StatusBarProgressBackgroundBrush = new SolidColorBrush (new Color {A = 0xFF, R = 0xB3, G = 0xE7, B = 0x70});
 				SearchBarBorderBrush = Brushes.Black;
 				SearchBarBackgroundBrush = new SolidColorBrush (new Color {A = 0xFF, R = 0x22, G = 0x22, B = 0x22});
 				SearchBarTextBrush = MainToolbarForegroundBrush;
