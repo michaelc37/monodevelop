@@ -37,6 +37,7 @@ namespace WindowsPlatform
 		static Brush mainToolbarBackgroundBrush;
 		static Brush mainToolbarForegroundBrush;
 		static Brush mainToolbarShadowBrush;
+		static Brush mainToolbarSeparatorBrush;
 
 		static Brush menuBackgroundBrush;
 		static Brush menuForegroundBrush;
@@ -70,6 +71,11 @@ namespace WindowsPlatform
 		public static Brush MainToolbarShadowBrush {
 			get { return mainToolbarShadowBrush; }
 			private set { mainToolbarShadowBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush MainToolbarSeparatorBrush {
+			get { return mainToolbarSeparatorBrush; }
+			private set { mainToolbarSeparatorBrush = value; RaisePropertyChanged (); }
 		}
 
 		public static Brush MenuBackgroundBrush {
@@ -170,6 +176,7 @@ namespace WindowsPlatform
 				MainToolbarBackgroundBrush = Brushes.Transparent;
 				MainToolbarForegroundBrush = Brushes.Black;
 				MainToolbarShadowBrush = Brushes.Gray;
+				MainToolbarSeparatorBrush = new SolidColorBrush (new Color { A = 0xFF, R = 0x7d, G = 0x7d, B = 0x7d, });
 
 				MenuBackgroundBrush = SystemColors.MenuBarBrush;
 				MenuForegroundBrush = SystemColors.MenuTextBrush;
@@ -193,6 +200,7 @@ namespace WindowsPlatform
 				MainToolbarBackgroundBrush = new SolidColorBrush (new Color {A=0xFF, R=0x33, G=0x33, B=0x33});
 				MainToolbarForegroundBrush = Brushes.White;
 				MainToolbarShadowBrush = Brushes.Gray;
+				MainToolbarSeparatorBrush = new SolidColorBrush (new Color { A = 0xFF, R = 0x7d, G = 0x7d, B = 0x7d, });
 
 				MenuBackgroundBrush = MainToolbarBackgroundBrush;
 				MenuForegroundBrush = MainToolbarForegroundBrush;
