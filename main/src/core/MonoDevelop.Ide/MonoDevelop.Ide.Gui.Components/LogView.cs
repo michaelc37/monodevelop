@@ -38,6 +38,7 @@ using MonoDevelop.Ide.Fonts;
 using MonoDevelop.Components.Commands;
 using MonoDevelop.Ide.Commands;
 using System.Linq;
+using MonoDevelop.Components;
 
 namespace MonoDevelop.Ide.Gui.Components
 {
@@ -250,7 +251,7 @@ namespace MonoDevelop.Ide.Gui.Components
 			closeButton = new Button ();
 			closeButton.CanFocus = true;
 			closeButton.Relief = ReliefStyle.None;
-			closeButton.Image = ImageService.GetImage ("gtk-close", IconSize.Menu);
+			closeButton.Image = new ImageView ("gtk-close", IconSize.Menu);
 			closeButton.Clicked += delegate {
 				HideSearchBox ();
 			};
@@ -260,7 +261,7 @@ namespace MonoDevelop.Ide.Gui.Components
 			buttonSearchForward.CanFocus = true;
 			buttonSearchForward.Relief = ReliefStyle.None;
 			buttonSearchForward.TooltipText = GettextCatalog.GetString ("Find next {0}", GetShortcut (SearchCommands.FindNext));
-			buttonSearchForward.Image = ImageService.GetImage ("gtk-go-down", IconSize.Menu);
+			buttonSearchForward.Image = new ImageView ("gtk-go-down", IconSize.Menu);
 			buttonSearchForward.Clicked += delegate {
 				FindNext ();
 			};
@@ -270,7 +271,7 @@ namespace MonoDevelop.Ide.Gui.Components
 			buttonSearchBackward.CanFocus = true;
 			buttonSearchBackward.Relief = ReliefStyle.None;
 			buttonSearchBackward.TooltipText = GettextCatalog.GetString ("Find previous {0}", GetShortcut (SearchCommands.FindPrevious));
-			buttonSearchBackward.Image = ImageService.GetImage ("gtk-go-up", IconSize.Menu);
+			buttonSearchBackward.Image = new ImageView ("gtk-go-up", IconSize.Menu);
 			buttonSearchBackward.Clicked += delegate {
 				FindPrev ();
 			};
