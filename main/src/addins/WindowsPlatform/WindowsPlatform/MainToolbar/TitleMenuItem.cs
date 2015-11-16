@@ -15,8 +15,6 @@ namespace WindowsPlatform.MainToolbar
 	{
 		public TitleMenuItem (MonoDevelop.Components.Commands.CommandManager manager, CommandEntry entry, CommandInfo commandArrayInfo = null, CommandSource commandSource = CommandSource.MainMenu, object initialCommandTarget = null)
 		{
-			Background = Styles.MainMenuBackgroundBrush;
-
 			this.manager = manager;
 			this.initialCommandTarget = initialCommandTarget;
 			this.commandSource = commandSource;
