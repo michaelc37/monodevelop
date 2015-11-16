@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:WindowsPlatform.MainToolbar"
              xmlns:platform="clr-namespace:WindowsPlatform"
-             mc:Ignorable="d" Background="Transparent">
+             mc:Ignorable="d" Background="{Binding Path=(platform:Styles.StatusBarBackgroundBrush), Mode=OneWay}">
     <UserControl.Resources>
         <Style x:Key="FlatProgressBar" TargetType="{x:Type ProgressBar}">
             <Setter Property="Template">
@@ -26,7 +26,7 @@
             <ProgressBar Minimum="0" Maximum="1" x:Name="ProgressBar" Style="{StaticResource FlatProgressBar}"/>
 
         </Grid>
-        <Grid Background="{Binding Background}" >
+        <Grid Background="{Binding Path=(platform:Styles.StatusBarBackgroundBrush), Mode=OneWay}" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />

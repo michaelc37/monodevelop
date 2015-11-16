@@ -27,33 +27,135 @@ using System;
 using System.Windows.Media;
 using MonoDevelop.Ide;
 using System.Windows;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace WindowsPlatform
 {
 	public static class Styles
 	{
-		public static Brush MainToolbarBackgroundBrush { get; private set; }
-		public static Brush MainToolbarForegroundBrush { get; private set; }
-		public static Brush MainToolbarShadowBrush { get; private set; }
+		static Brush mainToolbarBackgroundBrush;
+		static Brush mainToolbarForegroundBrush;
+		static Brush mainToolbarShadowBrush;
 
-		public static Brush MenuBackgroundBrush { get; private set; }
-		public static Brush MenuForegroundBrush { get; private set; }
-		public static Brush MenuBorderBrush { get; private set; }
-		public static Brush MenuHighlightBackgroundBrush { get; private set; }
-		public static Brush MenuHighlightBorderBrush { get; private set; }
-		public static Brush MenuSelectedBackgroundBrush { get; private set; }
-		public static Brush MenuSelectedBorderBrush { get; private set; }
-		public static Brush MenuDisabledForegroundBrush { get; private set; }
-		public static Brush MenuSeparatorBrush { get; private set; }
+		static Brush menuBackgroundBrush;
+		static Brush menuForegroundBrush;
+		static Brush menuBorderBrush;
+		static Brush menuHighlightBackgroundBrush;
+		static Brush menuHighlightBorderBrush;
+		static Brush menuSelectedBackgroundBrush;
+		static Brush menuSelectedBorderBrush;
+		static Brush menuDisabledForegroundBrush;
+		static Brush menuSeparatorBrush;
 
-		public static Brush StatusBarBackgroundBrush { get; private set; }
-		public static Brush StatusBarTextBrush { get; private set; }
-		public static Brush StatusBarErrorTextBrush { get; private set; }
-		public static Brush StatusBarWarningTextBrush { get; private set; }
-		public static Brush StatusBarReadyTextBrush { get; private set; }
-		public static Brush SearchBarBorderBrush { get; private set; }
-		public static Brush SearchBarBackgroundBrush { get; private set; }
-		public static Brush SearchBarTextBrush { get; private set; }
+		static Brush statusBarBackgroundBrush;
+		static Brush statusBarTextBrush;
+		static Brush statusBarErrorTextBrush;
+		static Brush statusBarWarningTextBrush;
+		static Brush statusBarReadyTextBrush;
+		static Brush searchBarBorderBrush;
+		static Brush searchBarBackgroundBrush;
+		static Brush searchBarTextBrush;
+
+		public static Brush MainToolbarBackgroundBrush {
+			get { return mainToolbarBackgroundBrush; }
+			private set { mainToolbarBackgroundBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush MainToolbarForegroundBrush {
+			get { return mainToolbarForegroundBrush; }
+			private set { mainToolbarForegroundBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush MainToolbarShadowBrush {
+			get { return mainToolbarShadowBrush; }
+			private set { mainToolbarShadowBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush MenuBackgroundBrush {
+			get { return menuBackgroundBrush; }
+			private set { menuBackgroundBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush MenuForegroundBrush {
+			get { return menuForegroundBrush; }
+			private set { menuForegroundBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush MenuBorderBrush {
+			get { return menuBorderBrush; }
+			private set { menuBorderBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush MenuHighlightBackgroundBrush {
+			get { return menuHighlightBackgroundBrush; }
+			private set { menuHighlightBackgroundBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush MenuHighlightBorderBrush {
+			get { return menuHighlightBorderBrush; }
+			private set { menuHighlightBorderBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush MenuSelectedBackgroundBrush {
+			get { return menuSelectedBackgroundBrush; }
+			private set { menuSelectedBackgroundBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush MenuSelectedBorderBrush {
+			get { return menuSelectedBorderBrush; }
+			private set { menuSelectedBorderBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush MenuDisabledForegroundBrush {
+			get { return menuDisabledForegroundBrush; }
+			private set { menuDisabledForegroundBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush MenuSeparatorBrush {
+			get { return menuSeparatorBrush; }
+			set { menuSeparatorBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush StatusBarBackgroundBrush {
+			get { return statusBarBackgroundBrush; }
+			private set { statusBarBackgroundBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush StatusBarTextBrush {
+			get { return statusBarTextBrush; }
+			private set { statusBarTextBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush StatusBarErrorTextBrush {
+			get { return statusBarErrorTextBrush; }
+			private set { statusBarErrorTextBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush StatusBarWarningTextBrush {
+			get { return statusBarWarningTextBrush; }
+			private set { statusBarWarningTextBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush StatusBarReadyTextBrush {
+			get { return statusBarReadyTextBrush; }
+			private set { statusBarReadyTextBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush SearchBarBorderBrush {
+			get { return searchBarBorderBrush; }
+			private set { searchBarBorderBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush SearchBarBackgroundBrush {
+			get { return searchBarBackgroundBrush; }
+			private set { searchBarBackgroundBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush SearchBarTextBrush {
+			get { return searchBarTextBrush; }
+			private set { searchBarTextBrush = value; RaisePropertyChanged (); }
+		}
 
 		static Styles ()
 		{
@@ -111,6 +213,14 @@ namespace WindowsPlatform
 				SearchBarBackgroundBrush = new SolidColorBrush (new Color {A = 0xFF, R = 0x22, G = 0x22, B = 0x22});
 				SearchBarTextBrush = MainToolbarForegroundBrush;
 			}
+		}
+
+		public static event EventHandler<PropertyChangedEventArgs> StaticPropertyChanged;
+
+		static void RaisePropertyChanged ([CallerMemberName] string propName = null)
+		{
+			if (StaticPropertyChanged != null)
+				StaticPropertyChanged (null, new PropertyChangedEventArgs (propName));
 		}
 	}
 }
