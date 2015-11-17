@@ -63,7 +63,7 @@ namespace WindowsPlatform.MainToolbar
 
 				try {
 					if (!actionCommand.Icon.IsNull)
-						Icon = new Image { Source = ImageService.GetIcon (actionCommand.Icon).WithSize (Xwt.IconSize.Small).GetImageSource () };
+						Icon = new ImageBox (ImageService.GetIcon (actionCommand.Icon).WithSize (Xwt.IconSize.Small));
 				} catch (Exception ex) {
 					MonoDevelop.Core.LoggingService.LogError ("Failed loading menu icon: " + actionCommand.Icon, ex);
 				}

@@ -31,7 +31,7 @@ using System.Windows.Controls;
 
 namespace WindowsPlatform
 {
-	public class ImageBox : System.Windows.Controls.UserControl
+	public class ImageBox : UserControl
 	{
 		public static readonly DependencyProperty ImageProperty =
 			DependencyProperty.Register ("Image", typeof (Xwt.Drawing.Image), typeof (ImageBox), new FrameworkPropertyMetadata () { AffectsMeasure = true, AffectsRender = true });
@@ -45,16 +45,23 @@ namespace WindowsPlatform
 		public ImageBox ()
 		{
 			Image = null;
+			Loaded += (sender, e) => MonoDevelop.Ide.Gui.Styles.Changed += HandleStylesChanged;
+			Unloaded += (sender, e) => MonoDevelop.Ide.Gui.Styles.Changed -= HandleStylesChanged;
 		}
 
-		public ImageBox (Xwt.Drawing.Image image)
+		public ImageBox (Xwt.Drawing.Image image) : this ()
 		{
 			Image = image;
 		}
 
-		public ImageBox (string iconId, Gtk.IconSize size)
+		public ImageBox (string iconId, Gtk.IconSize size) : this ()
 		{
 			Image = MonoDevelop.Ide.ImageService.GetIcon (iconId, size);
+		}
+
+		void HandleStylesChanged (object sender, EventArgs e)
+		{
+			InvalidateVisual ();
 		}
 
 		protected override void OnRender (DrawingContext dc)
