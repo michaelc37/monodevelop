@@ -64,7 +64,7 @@ namespace WindowsPlatform.MainToolbar
 			arrow.Points.Add (new Point (6, 3));
 			content.Children.Add (arrow);
 
-			Items.Add (new MenuItem {
+			Items.Add (new SimpleMenuItem {
 				Header = content,
 				UseLayoutRounding = true,
 			});
@@ -172,7 +172,7 @@ namespace WindowsPlatform.MainToolbar
 				SelectionChanged (this, new SelectionChangedEventArgs<IConfigurationModel> (item.Model, old));
         }
 
-		class ConfigurationMenuItem : MenuItem
+		class ConfigurationMenuItem : SimpleMenuItem
 		{
 			public ConfigurationMenuItem (IConfigurationModel model)
 			{
@@ -290,7 +290,7 @@ namespace WindowsPlatform.MainToolbar
 
 		public override event EventHandler<SelectionChangedEventArgs<IRuntimeModel>> SelectionChanged;
 
-		class RuntimeMenuItem : MenuItem
+		class RuntimeMenuItem : SimpleMenuItem
 		{
 			public IRuntimeModel Model { get; private set; }
 			public RuntimeMenuItem (IRuntimeModel model)
