@@ -36,6 +36,7 @@ namespace WindowsPlatform
 	{
 		static Brush mainToolbarBackgroundBrush;
 		static Brush mainToolbarForegroundBrush;
+		static Brush mainToolbarDisabledForegroundBrush;
 		static Brush mainToolbarShadowBrush;
 		static Brush mainToolbarSeparatorBrush;
 
@@ -68,6 +69,11 @@ namespace WindowsPlatform
 		public static Brush MainToolbarForegroundBrush {
 			get { return mainToolbarForegroundBrush; }
 			private set { mainToolbarForegroundBrush = value; RaisePropertyChanged (); }
+		}
+
+		public static Brush MainToolbarDisabledForegroundBrush {
+			get { return mainToolbarDisabledForegroundBrush; }
+			private set { mainToolbarDisabledForegroundBrush = value; RaisePropertyChanged (); }
 		}
 
 		public static Brush MainToolbarShadowBrush {
@@ -187,6 +193,7 @@ namespace WindowsPlatform
 			if (IdeApp.Preferences.UserInterfaceSkin == Skin.Light) {
 				MainToolbarBackgroundBrush = Brushes.Transparent;
 				MainToolbarForegroundBrush = new SolidColorBrush (new Color { A = 0xFF, R = 0x22, G = 0x22, B = 0x22 });
+				MainToolbarDisabledForegroundBrush = Brushes.Gray;
 				MainToolbarShadowBrush = Brushes.Gray;
 				MainToolbarSeparatorBrush = new SolidColorBrush (new Color { A = 0xFF, R = 0x7d, G = 0x7d, B = 0x7d });
 
@@ -213,6 +220,7 @@ namespace WindowsPlatform
 			} else {
 				MainToolbarBackgroundBrush = new SolidColorBrush (new Color { A = 0xFF, R = 0x30, G = 0x30, B = 0x30 });
 				MainToolbarForegroundBrush = new SolidColorBrush (new Color { A = 0xFF, R = 0xEE, G = 0xEE, B = 0xEE });
+				MainToolbarDisabledForegroundBrush = Brushes.Gray;
 				MainToolbarShadowBrush = new SolidColorBrush (new Color { A = 0xFF, R = 0x74, G = 0x74, B = 0x74 });
 				MainToolbarSeparatorBrush = new SolidColorBrush (new Color { A = 0xFF, R = 0x7d, G = 0x7d, B = 0x7d });
 
