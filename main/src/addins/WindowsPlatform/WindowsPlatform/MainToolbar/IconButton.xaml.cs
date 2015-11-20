@@ -58,7 +58,7 @@ namespace WindowsPlatform.MainToolbar
 				RunIcon.Image = IsMouseOver ? Image.WithStyles ("hover") : Image;
 		}
 
-		protected override void OnMouseLeftButtonDown (MouseButtonEventArgs e)
+		void OnMouseLeftButtonDown (object sender, MouseButtonEventArgs e)
 		{
 			base.OnMouseLeftButtonDown (e);
 			if (Image == null)
@@ -67,7 +67,7 @@ namespace WindowsPlatform.MainToolbar
 				RunIcon.Image = Image.WithStyles ("pressed");
 		}
 
-		protected override void OnMouseLeftButtonUp (MouseButtonEventArgs e)
+		void OnMouseLeftButtonUp (object sender, MouseButtonEventArgs e)
 		{
 			base.OnMouseLeftButtonDown (e);
 			if (Image == null)

@@ -14,6 +14,8 @@
                 </StackPanel>
             </ControlTemplate>
         </Button.Template>
-    	<i:ImageBox x:Name="RunIcon" Image="{Binding Image}" UseLayoutRounding="True" />
+    	<i:ImageBox x:Name="RunIcon" Image="{Binding Image}" UseLayoutRounding="True"
+    		MouseLeftButtonDown="OnMouseLeftButtonDown"
+    		MouseLeftButtonUp="OnMouseLeftButtonUp" />
     </Button>
 </UserControl>
