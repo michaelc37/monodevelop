@@ -17,7 +17,7 @@ DEP[0]=md-addins
 DEP_NAME[0]=MDADDINS
 DEP_PATH[0]=${top_srcdir}/../md-addins
 DEP_MODULE[0]=git@github.com:xamarin/md-addins.git
-DEP_NEEDED_VERSION[0]=90267aed60b131243f659f86f55a832872656260
+DEP_NEEDED_VERSION[0]=c1b5e29cff19e3ebbaa423ea0e0e17cbe9f528f5
 DEP_BRANCH_AND_REMOTE[0]="cycle6-test-cloud-xamarin-uitest-1.1.1 origin/cycle6-test-cloud-xamarin-uitest-1.1.1"
 
 # heap-shot
