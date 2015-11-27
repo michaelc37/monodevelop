@@ -1206,6 +1206,18 @@
     <EmbeddedResource Include="icons\project-32~dark%402x.png">
       <LogicalName>project-32~dark@2x.png</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-32~sel.png">
+      <LogicalName>project-32~sel.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-32~sel%402x.png">
+      <LogicalName>project-32~sel@2x.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-32~dark~sel.png">
+      <LogicalName>project-32~dark~sel.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-32~dark~sel%402x.png">
+      <LogicalName>project-32~dark~sel@2x.png</LogicalName>
+    </EmbeddedResource>
     <EmbeddedResource Include="icons\project-console-overlay-32.png">
       <LogicalName>project-console-overlay-32.png</LogicalName>
     </EmbeddedResource>
@@ -1217,6 +1229,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="icons\project-console-overlay-32~dark%402x.png">
       <LogicalName>project-console-overlay-32~dark@2x.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-console-overlay-32~sel.png">
+      <LogicalName>project-console-overlay-32~sel.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-console-overlay-32~sel%402x.png">
+      <LogicalName>project-console-overlay-32~sel@2x.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-console-overlay-32~dark~sel.png">
+      <LogicalName>project-console-overlay-32~dark~sel.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-console-overlay-32~dark~sel%402x.png">
+      <LogicalName>project-console-overlay-32~dark~sel@2x.png</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="icons\project-gui-overlay-32.png">
       <LogicalName>project-gui-overlay-32.png</LogicalName>
@@ -1242,6 +1266,18 @@
     <EmbeddedResource Include="icons\project-library-overlay-32~dark%402x.png">
       <LogicalName>project-library-overlay-32~dark@2x.png</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-library-overlay-32~sel.png">
+      <LogicalName>project-library-overlay-32~sel.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-library-overlay-32~sel%402x.png">
+      <LogicalName>project-library-overlay-32~sel@2x.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-library-overlay-32~dark~sel.png">
+      <LogicalName>project-library-overlay-32~dark~sel.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-library-overlay-32~dark~sel%402x.png">
+      <LogicalName>project-library-overlay-32~dark~sel@2x.png</LogicalName>
+    </EmbeddedResource>
     <EmbeddedResource Include="icons\project-shared-assets-overlay-32.png">
       <LogicalName>project-shared-assets-overlay-32.png</LogicalName>
     </EmbeddedResource>
@@ -1254,6 +1290,18 @@
     <EmbeddedResource Include="icons\project-shared-assets-overlay-32~dark%402x.png">
       <LogicalName>project-shared-assets-overlay-32~dark@2x.png</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-shared-assets-overlay-32~sel.png">
+      <LogicalName>project-shared-assets-overlay-32~sel.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-shared-assets-overlay-32~sel%402x.png">
+      <LogicalName>project-shared-assets-overlay-32~sel@2x.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-shared-assets-overlay-32~dark~sel.png">
+      <LogicalName>project-shared-assets-overlay-32~dark~sel.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-shared-assets-overlay-32~dark~sel%402x.png">
+      <LogicalName>project-shared-assets-overlay-32~dark~sel@2x.png</LogicalName>
+    </EmbeddedResource>
     <EmbeddedResource Include="icons\project-package-overlay-32.png">
       <LogicalName>project-package-overlay-32.png</LogicalName>
     </EmbeddedResource>
@@ -1265,6 +1313,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="icons\project-package-overlay-32~dark%402x.png">
       <LogicalName>project-package-overlay-32~dark@2x.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-package-overlay-32~sel.png">
+      <LogicalName>project-package-overlay-32~sel.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-package-overlay-32~sel%402x.png">
+      <LogicalName>project-package-overlay-32~sel@2x.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-package-overlay-32~dark~sel.png">
+      <LogicalName>project-package-overlay-32~dark~sel.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-package-overlay-32~dark~sel%402x.png">
+      <LogicalName>project-package-overlay-32~dark~sel@2x.png</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="icons\project-new-16.png">
       <LogicalName>project-new-16.png</LogicalName>
@@ -1340,6 +1400,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="icons\solution-32~dark%402x.png">
       <LogicalName>solution-32~dark@2x.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\solution-32~sel.png">
+      <LogicalName>solution-32~sel.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\solution-32~sel%402x.png">
+      <LogicalName>solution-32~sel@2x.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\solution-32~dark~sel.png">
+      <LogicalName>solution-32~dark~sel.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\solution-32~dark~sel%402x.png">
+      <LogicalName>solution-32~dark~sel@2x.png</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="icons\solution-folder-new-16.png">
       <LogicalName>solution-folder-new-16.png</LogicalName>
@@ -1527,6 +1599,18 @@
     <EmbeddedResource Include="icons\project-web-32~dark%402x.png">
       <LogicalName>project-web-32~dark@2x.png</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-web-32~sel.png">
+      <LogicalName>project-web-32~sel.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-web-32~sel%402x.png">
+      <LogicalName>project-web-32~sel@2x.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-web-32~dark~sel.png">
+      <LogicalName>project-web-32~dark~sel.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-web-32~dark~sel%402x.png">
+      <LogicalName>project-web-32~dark~sel@2x.png</LogicalName>
+    </EmbeddedResource>
     <EmbeddedResource Include="icons\workspace-16.png">
       <LogicalName>workspace-16.png</LogicalName>
     </EmbeddedResource>
@@ -1562,6 +1646,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="icons\workspace-32~dark%402x.png">
       <LogicalName>workspace-32~dark@2x.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\workspace-32~sel.png">
+      <LogicalName>workspace-32~sel.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\workspace-32~sel%402x.png">
+      <LogicalName>workspace-32~sel@2x.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\workspace-32~dark~sel.png">
+      <LogicalName>workspace-32~dark~sel.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\workspace-32~dark~sel%402x.png">
+      <LogicalName>workspace-32~dark~sel@2x.png</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="MonoDevelop.Components.Docking\icons\pad-minimize-9.png">
       <LogicalName>pad-minimize-9.png</LogicalName>
@@ -4424,6 +4520,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="icons\project-nunit-overlay-32~dark%402x.png">
       <LogicalName>project-nunit-overlay-32~dark@2x.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-nunit-overlay-32~sel.png">
+      <LogicalName>project-nunit-overlay-32~sel.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-nunit-overlay-32~sel%402x.png">
+      <LogicalName>project-nunit-overlay-32~sel@2x.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-nunit-overlay-32~dark~sel.png">
+      <LogicalName>project-nunit-overlay-32~dark~sel.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\project-nunit-overlay-32~dark~sel%402x.png">
+      <LogicalName>project-nunit-overlay-32~dark~sel@2x.png</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' != 'DebugMac' AND '$(Configuration)' != 'ReleaseMac' ">
