@@ -17,7 +17,7 @@ DEP[0]=md-addins
 DEP_NAME[0]=MDADDINS
 DEP_PATH[0]=${top_srcdir}/../md-addins
 DEP_MODULE[0]=git@github.com:xamarin/md-addins.git
-DEP_NEEDED_VERSION[0]=88a04d2e2148fecaa724fff4f18a1519177658ec
+DEP_NEEDED_VERSION[0]=f4282d6c3bb7ca95417cf9daad0268cb60b088c0
 DEP_BRANCH_AND_REMOTE[0]="android-add-google-play-services origin/android-add-google-play-services"
 
 # heap-shot
