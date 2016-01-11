@@ -183,7 +183,7 @@ namespace MonoDevelop.SourceEditor
 			widget.TextEditor.Document.TextReplacing += OnTextReplacing;
 			widget.TextEditor.Document.TextReplaced += OnTextReplaced;
 			widget.TextEditor.Document.ReadOnlyCheckDelegate = CheckReadOnly;
-			
+			widget.TextEditor.TextViewMargin.LineShown += TextViewMargin_LineShown;
 			//			widget.TextEditor.Document.DocumentUpdated += delegate {
 			//				this.IsDirty = Document.IsDirty;
 			//			};
@@ -233,6 +233,7 @@ namespace MonoDevelop.SourceEditor
 			}
 			FileRegistry.Add (this);
 		}
+
 
 		void HandleLineChanged (object sender, Mono.TextEditor.LineEventArgs e)
 		{
@@ -934,6 +935,9 @@ namespace MonoDevelop.SourceEditor
 					}
 				}
 			}
+			if (Document.MimeType != null) {
+				widget.TextEditor.TextEditorResolverProvider = TextEditorResolverService.GetProvider (Document.MimeType);
+			}
 		}
 		
 		public Encoding SourceEncoding {
@@ -975,6 +979,7 @@ namespace MonoDevelop.SourceEditor
 			widget.TextEditor.Document.TextReplaced -= OnTextReplaced;
 			widget.TextEditor.Document.ReadOnlyCheckDelegate = null;
 			widget.TextEditor.Options.Changed -= HandleWidgetTextEditorOptionsChanged;
+			widget.TextEditor.TextViewMargin.LineShown -= TextViewMargin_LineShown;
 
 			TextEditorService.FileExtensionAdded -= HandleFileExtensionAdded;
 			TextEditorService.FileExtensionRemoved -= HandleFileExtensionRemoved;
@@ -3065,6 +3070,21 @@ namespace MonoDevelop.SourceEditor
 		{
 			widget.RemoveOverlay (messageOverlayContent.GetNativeWidget<Widget> ());
 		}
+
+		void TextViewMargin_LineShown (object sender, Mono.TextEditor.LineEventArgs e)
+		{
+			LineShown?.Invoke (this, new Ide.Editor.LineEventArgs (new DocumentLineWrapper (e.Line)));
+		}
+
+		public IEnumerable<IDocumentLine> VisibleLines {
+			get {
+				foreach (var v in TextEditor.TextViewMargin.CachedLine) {
+					yield return new DocumentLineWrapper (v);
+				}
+			}
+		}
+
+		public event EventHandler<Ide.Editor.LineEventArgs> LineShown;
 
 		#region IEditorActionHost implementation
 
